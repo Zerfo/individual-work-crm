@@ -1,0 +1,23 @@
+{
+  "name": "individual-work-crm",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./Back/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zerfo/individual-work-crm.git"
+  },
+  "author": "Nikolay Smekalin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Zerfo/individual-work-crm/issues"
+  },
+  "homepage": "https://github.com/Zerfo/individual-work-crm#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
