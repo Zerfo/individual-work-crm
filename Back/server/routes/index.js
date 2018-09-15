@@ -1,3 +1,5 @@
-module.exports = function(app, db) {
-  // Тут, позже, будут обработчики маршрутов 
+/* @flow */
+
+module.exports = (app, db) => {
+	//бработка маршрутов
 };

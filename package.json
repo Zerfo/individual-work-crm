@@ -5,19 +5,32 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./Back/index.js",
+    "eslint": "eslint ./Back/server --max-warnings=0 && eslint ./Front/src --max-warnings=0",
+    "flow": "flow",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Zerfo/individual-work-crm.git"
   },
-  "author": "Nikolay Smekalin",
+  "author": {
+    "name": "Nikolay SMekalin",
+    "email": "Zerfogame@yandex.ru"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Zerfo/individual-work-crm/issues"
   },
   "homepage": "https://github.com/Zerfo/individual-work-crm#readme",
+  "dependencies": {
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-import": "^2.14.0"
+  },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "eslint": "^5.5.0",
+    "flow-bin": "^0.80.0",
+    "prettier": "1.14.2"
   }
 }
