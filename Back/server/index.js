@@ -12,9 +12,14 @@ const port = '5000';
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
 app.use(cookieParser());
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    next();
+});
 app.use(session({
     store: new SQLiteStore,
-    secret: 'ahfds',
+    secret: '',//Your secret key
     cookie: {
         maxAge: 24 * 60 * 60 * 1000
     },
