@@ -15,5 +15,5 @@ module.exports = app => {
 			secret: 'SUPERSECTER'
 		})
 	);
-	logout(app)
+	logout(app);
 };
