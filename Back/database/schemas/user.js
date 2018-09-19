@@ -51,5 +51,8 @@ module.exports = sequelize.define('user', {
   },
   avatarURL: {
     type: Sequelize.TEXT
+  },
+  refreshToken: {
+    type: Sequelize.TEXT
   }
 });

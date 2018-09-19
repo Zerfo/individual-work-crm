@@ -1,17 +1,16 @@
 /* @flow */
-const crypto = require('crypto');
-const User = require('../../../database/schemas/user');
+const User = require('../../../../database/schemas/user');
+const { hashSync } = require('bcrypt');
 
-const hash = text => crypto.createHash('sha1').update(text).digest('base64');
 const createUser = userData => User.create({
   admin: userData.secretKey ? true : false,
   email: userData.email,
   username: userData.username,
-  password: hash(userData.password)
+  password: hashSync(userData.password, 10)
 });
 
 module.exports = app => {
-	app.post('/api/v1/registration', (req, res) => {
+	app.post('/api/v1/singup', (req, res) => {
     User.sync()
     .then(() => {
       createUser(req.body)

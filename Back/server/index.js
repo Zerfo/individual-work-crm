@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 });
 app.use(session({
     store: new SQLiteStore,
-    secret: '',//Your secret key
+    secret: 'SUPERSECTER',//Your secret key
     cookie: {
         maxAge: 24 * 60 * 60 * 1000
     },
