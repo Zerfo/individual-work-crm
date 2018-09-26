@@ -7,7 +7,8 @@
     "start": "nodemon ./Back/index.js",
     "eslint": "eslint ./Back/server --max-warnings=0 && eslint ./Front/src --max-warnings=0",
     "flow": "flow",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "testBack": "echo \"Error: no test specified\" && exit 1",
+    "testFront": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

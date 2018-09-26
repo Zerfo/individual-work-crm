@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    cursor: default;
+    overflow-x: hidden;
+    background-color: #fff !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}
+
+a:focus {
+    text-decoration: none;
+}
+#root {
+    height: 100%;
+}
+#modal {
+    position: absolute;
+    margin-top: 15%;
+}
