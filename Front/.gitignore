@@ -1,10 +1,4 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-
-out/
-target/
-.idea
-.gradle
-*.iml
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
 /node_modules
@@ -14,11 +8,6 @@ target/
 
 # production
 /build
-
-# ci
-/ci
-
-.vscode/
 
 # misc
 .DS_Store
@@ -30,5 +19,3 @@ target/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-yarn.lock*
-/flow-typed*
