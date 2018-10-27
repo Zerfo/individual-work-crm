@@ -24,7 +24,8 @@ export default class AppPage extends Component {
 
   logout = (event) => {
     event.preventDefault();
-    //Функция разлогина на сервере
+    this.props.logout()
+      .then(() => localStorage.setItem('token', ''));
   };
 
   render () {
@@ -36,7 +37,7 @@ export default class AppPage extends Component {
         logout={this.logout}
       >
         {
-          profile && profile.userRoleID === ADMIN
+          profile && profile.userRole === ADMIN
             ? <AdminRouting/>
             : <UserRouting/>
         }

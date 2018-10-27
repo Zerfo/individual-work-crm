@@ -6,8 +6,11 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 
+const config = require('./config');
+
 //import routes
-const authModule = require('./routes/v1/auth/index.js');
+const authModule = require('./routes/v1/auth');
+const userModule = require('./routes/v1/user');
 
 const app = express();
 const port = '5000';
@@ -29,15 +32,8 @@ app.use(session({
     saveUninitialized: false
     }));
 
-app.use('/api/v1/auth', authModule);
-app.use( jwtMiddleware({ secret: 'SUPERSECTER' /*Your secret key*/ }) ); 
-app.use(function (err, req, res, next) {
-    if (err.name === 'UnauthorizedError') return res.status(401).send({
-        'status': 'error',
-        'code': '401',
-        'message': "Bad Token"
-      });
-  });
+app.use('/api/v1', authModule);
+app.use('/api/v1/user', userModule);
 
 app.listen(port, () => {
     console.log(`Server started on localhost:5000`);

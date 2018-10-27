@@ -19,8 +19,12 @@ class LoginPage extends Component {
     const { form: { validateFields }, submitLogin } = this.props;
     validateFields((err, values) => {
       if (!err) {
-        const data = { data: values };
-        submitLogin(data);
+        const data = values;
+        submitLogin(data)
+          .then(() => {
+            //Получаем инфу по пользователю
+            //getUserInfo(values.login, token)
+          });
       }
     });
   }

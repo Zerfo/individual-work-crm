@@ -2,17 +2,13 @@ const express = require('express');
 const router = express.Router();  
 const { compareSync } = require('bcrypt');
 const User = require('../../../../database/schemas/user');
+const config = require('../../../config');
+const searchUser = require('../../../helpers/searchUser');
 const jwt = require('jsonwebtoken');
 const uuid = require('uuid/v4');
 const jwtMiddleware = require('express-jwt');
 const { hashSync } = require('bcrypt');
 
-const searchUser = async data => {
-  await User.sync();
-  const user = await User.findOne(data);
-  if (!user) return 'Error';
-  return user;
-}
 const createUser = userData => User.create({
   admin: userData.secretKey ? true : false,
   email: userData.email,
@@ -47,7 +43,12 @@ router.post('/singup', (req, res) => {
     });
 
 router.post('/login', async (req, res) => {
-  const { login, password } = req.body;
+  const { login, password } = req.body.data;
+  if (!login || !password) return res.status(404).send({
+    'status': 'error',
+    'code': '404',
+    'message': "user wasn't found"
+  });
   const user = await searchUser({ username: login });
   if (user === 'Error' || !compareSync(password, user.password)) {
     return res.status(404).send({
@@ -62,13 +63,20 @@ router.post('/login', async (req, res) => {
     'status': 'Ok',
     'code': '200',
     'data': {
-      'accessToken': jwt.sign({ id: user.id }, 'SUPERSECTER'),
-      'refreshToken': refreshToken
+      'accessToken': jwt.sign({ id: user.id }, config.secret),
+      'refreshToken': refreshToken,
+      'id': user.id,
+      'tyle': 'profile',
+      'attributes': {
+        'username': user.username,
+        'avatarURL': user.avatarURL,
+        'userRole': user.admin ? 'ADMIN' : 'USER'
+      }
     }
   });
 });
 
-router.post('/logout', jwtMiddleware({ secret: 'SUPERSECTER' }), async (req, res) => {
+router.post('/logout', jwtMiddleware({ secret: config.secret }), async (req, res) => {
   const { id } = req.body;
   console.log(req.body);
   if (!id) {
@@ -104,7 +112,7 @@ router.post('/refresh', async (req, res) => {
     'status': 'Ok',
     'code': '200',
     'data': {
-      'accessToken': jwt.sign({ id: user.id }, 'SUPERSECTER'),
+      'accessToken': jwt.sign({ id: user.id }, config.secret),
       'refreshToken': newRefreshToken
     }
   });
