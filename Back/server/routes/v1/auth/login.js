@@ -7,9 +7,9 @@ const uuid = require('uuid/v4');
 
 module.exports = app => {
 	app.post('/api/v1/login', async (req, res) => {
-    const { login, password } = req.body;
+    const { login, password } = req.body.data;
     await User.sync();
-    const user = await User.findOne({username: login});
+    const user = await User.findOne({ username: login });
     if (!user || !compareSync(password, user.password)) {
       const error = new Error;
       error.status = 403;

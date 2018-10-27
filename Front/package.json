@@ -117,5 +117,6 @@
   "devDependencies": {
     "eslint-plugin-babel": "^5.2.1",
     "redux-devtools-extension": "^2.13.5"
-  }
+  },
+  "proxy": "http://localhost:5000/"
 }

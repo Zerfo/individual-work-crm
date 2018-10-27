@@ -26,7 +26,8 @@
   "dependencies": {
     "eslint-loader": "^2.1.0",
     "eslint-plugin-flowtype": "^2.50.0",
-    "eslint-plugin-import": "^2.14.0"
+    "eslint-plugin-import": "^2.14.0",
+    "node-sass": "^4.9.4"
   },
   "devDependencies": {
     "nodemon": "^1.18.4",
