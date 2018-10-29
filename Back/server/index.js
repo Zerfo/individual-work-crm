@@ -10,6 +10,7 @@ const config = require('./config');
 //import routes
 const authModule = require('./routes/v1/auth');
 const userModule = require('./routes/v1/user');
+const adminModule = require('./routes/v1/user');
 
 const app = express();
 const port = '5000';
@@ -33,6 +34,7 @@ app.use(session({
 
 app.use('/api/v1', authModule);
 app.use('/api/v1/user', userModule);
+app.use('/api/v1/admin', adminModule);
 
 app.listen(port, () => {
     console.log(`Server started on localhost:5000`);
