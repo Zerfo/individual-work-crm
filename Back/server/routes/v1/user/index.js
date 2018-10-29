@@ -5,10 +5,14 @@ const jwt = require('jsonwebtoken');
 
 const config = require('../../../config');
 const searchUser = require('../../../helpers/searchUser');
+const searchClaim = require('../../../helpers/searchClaim');
+const BadTokenRequest = require('../../../helpers/BadToken');
 
-router.get('/', jwtMiddleware({ secret: config.secret }), async (req, res) => {
+router.get('/', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const user = await searchUser({ id: jwt.verify(token, config.secret).id });
+  const claims = await searchClaim.userClaim({ id: jwt.verify(token, config.secret).id });
+
   return res.status(200).send({
     id: user.id,
     userRole: user.admin ? 'ADMIN' : 'USER',
@@ -16,7 +20,14 @@ router.get('/', jwtMiddleware({ secret: config.secret }), async (req, res) => {
     username: user.username,
     firstName: user.firstName,
     lastName: user.lastName,
-    avatarURL: user.avatarURL
+    avatarURL: user.avatarURL,
+    UserClaims: claims !== 'Error' ? claims.map(item => ({
+      statusClaim: item.statusClaim,
+      nameClaim: item.nameClaim,
+      descriptionClaim: item.descriptionClaim,
+      commentsClaim: item.commentsClaim,
+      resolveClaim: item.resolveClaim
+    })) : null
   });
 });
 

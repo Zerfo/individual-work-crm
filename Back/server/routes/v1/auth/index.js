@@ -3,6 +3,7 @@ const router = express.Router();
 const { compareSync } = require('bcrypt');
 const User = require('../../../../database/schemas/user');
 const config = require('../../../config');
+const BadTokenRequest = require('../../../helpers/BadToken');
 const searchUser = require('../../../helpers/searchUser');
 const jwt = require('jsonwebtoken');
 const uuid = require('uuid/v4');
@@ -63,7 +64,7 @@ router.post('/login', async (req, res) => {
     'status': 'Ok',
     'code': '200',
     'data': {
-      'accessToken': jwt.sign({ id: user.id }, config.secret),
+      'accessToken': jwt.sign({ id: user.id, admin: user.admin }, config.secret),
       'refreshToken': refreshToken,
       'id': user.id,
       'tyle': 'profile',
@@ -76,7 +77,7 @@ router.post('/login', async (req, res) => {
   });
 });
 
-router.post('/logout', jwtMiddleware({ secret: config.secret }), async (req, res) => {
+router.post('/logout', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const { id } = req.body;
   console.log(req.body);
   if (!id) {
