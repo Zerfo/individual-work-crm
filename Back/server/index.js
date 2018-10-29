@@ -1,5 +1,4 @@
 const express = require('express');
-const jwtMiddleware = require('express-jwt');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
@@ -26,7 +25,7 @@ app.use((req, res, next) => {
 });
 app.use(session({
     store: new SQLiteStore,
-    secret: 'SUPERSECTER', //Your secret key
+    secret: config.secret, //Your secret key
     cookie: { maxAge: 24 * 60 * 60 * 1000 },
     resave: false,
     saveUninitialized: false
