@@ -1,13 +1,15 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import Home from '../../pages/User/Home';
+import Profile from '../../pages/Profile';
+import UserClaims from '../../pages/User/Claims';
 import NotFound from '../../pages/NotFound';
 
 export default () => (
   <Switch>
-    <Redirect from="/" exact to={{ pathname: '/home' }} />
-    <Route component={Home} path="/home" />
+    <Redirect from="/" exact to={{ pathname: '/profile' }} />
+    <Route component={Profile} path="/profile" />
+    <Route component={UserClaims} path="/claims" />
     <Route component={NotFound} />
   </Switch>
 );

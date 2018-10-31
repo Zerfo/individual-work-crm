@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Pt from 'prop-types';
 
-export default class NotFound extends Component {
+export default class AdminClaims extends Component {
   render() {
     return (
       <div>
-        NotFound
+        AdminClaims
       </div>
     );
   }

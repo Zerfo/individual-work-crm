@@ -3,7 +3,7 @@ import Pt from 'prop-types';
 
 import { Layout } from 'antd';
 
-//import Header from '../../blocks/Header';
+import Header from '../../blocks/Header';
 import Footer from '../../blocks/Footer';
 
 const { Content } = Layout;
@@ -20,7 +20,7 @@ export default class AppTemplate extends Component {
 
     return (
       <Layout>
-        {/* <Header profile={profile} logout={logout} /> */}
+        <Header profile={profile} logout={logout} />
         <Layout>
           <Content>
             { this.props.children }

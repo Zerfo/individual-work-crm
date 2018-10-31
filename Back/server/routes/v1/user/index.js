@@ -11,16 +11,19 @@ const BadTokenRequest = require('../../../helpers/BadToken');
 router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const user = await searchUser({ id: jwt.verify(token, config.secret).id });
+  //TODO: Вынести получение заявок пользователя в отдельнвый роут
   const claims = await searchClaim.userClaim({ id: jwt.verify(token, config.secret).id });
 
   return res.status(200).send({
-    id: user.id,
-    userRole: user.admin ? 'ADMIN' : 'USER',
-    email: user.email,
-    username: user.username,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    avatarURL: user.avatarURL,
+    attributes: {
+      id: user.id,
+      userRole: user.admin ? 'ADMIN' : 'USER',
+      email: user.email,
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      avatarURL: user.avatarURL
+    },
     UserClaims: claims !== 'Error' ? claims.map(item => ({
       statusClaim: item.statusClaim,
       nameClaim: item.nameClaim,

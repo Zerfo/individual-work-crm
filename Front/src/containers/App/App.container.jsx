@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Pt from 'prop-types';
+
 import { Redirect, Route } from 'react-router-dom';
 
 import Preloader from '../../components/atoms/Preloader';
@@ -20,6 +21,7 @@ export default class AppPage extends Component {
     window.onstorage = () => {
       window.location.reload();
     };
+    //TODO: Запрос за профилем пользователя
   };
 
   logout = (event) => {
@@ -30,12 +32,12 @@ export default class AppPage extends Component {
 
   render () {
     const { loggedIn, profile } = this.props;
-    if (!profile && loggedIn) return <Preloader />;
     return loggedIn
       ? <AppTemplate
         profile={profile}
         logout={this.logout}
       >
+        { !profile && loggedIn && <Preloader /> }
         {
           profile && profile.userRole === ADMIN
             ? <AdminRouting/>
