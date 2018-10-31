@@ -26,6 +26,7 @@ export default class AppPage extends Component {
 
   logout = (event) => {
     event.preventDefault();
+    //TODO: Доделать разлогин
     this.props.logout()
       .then(() => localStorage.setItem('token', ''));
   };

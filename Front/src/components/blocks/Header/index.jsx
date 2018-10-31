@@ -4,6 +4,7 @@ import Pt from 'prop-types';
 import { Layout } from 'antd';
 
 import NavMenu from '../../atoms/NavMenu';
+import HeaderProfile from '../../atoms/HeaderProfile';
 
 import './Header.scss';
 
@@ -18,20 +19,22 @@ export default class MainHeader extends Component {
     isExpaded: true
   };
 
-  handleToogle(e) {
-    e.preventDefault();
-    this.setState({
-      isExpaded: !this.state.isExpaded
-    });
+  handleToogle = event => {
+    event.preventDefault();
+    this.setState({ isExpaded: !this.state.isExpaded });
   }
 
   render() {
     const isExpaded = this.state.isExpaded;
     return <Layout.Header className="header">
-      {
-        this.props.profile
-          ? <NavMenu onClick={(e) => this.handleToogle(e)} isExpaded={isExpaded} role={this.props.profile.userRoleID} />
-          : null
+      { this.props.profile ? <NavMenu
+        onClick={event => this.handleToogle(event)}
+        isExpaded={isExpaded}
+        role={this.props.profile.userRoleID} /> : null
+      }
+      { this.props.profile ? <HeaderProfile
+        logout={this.props.logout}
+        profile={this.props.profile} /> : null
       }
     </Layout.Header>;
   }
