@@ -14,6 +14,7 @@ export default class AppPage extends Component {
   static propTypes = {
     loggedIn: Pt.bool,
     logout: Pt.func,
+    getUserInfo: Pt.func,
     profile: Pt.object
   };
 
@@ -21,7 +22,7 @@ export default class AppPage extends Component {
     window.onstorage = () => {
       window.location.reload();
     };
-    //TODO: Запрос за профилем пользователя
+    this.props.getUserInfo();
   };
 
   logout = (event) => {

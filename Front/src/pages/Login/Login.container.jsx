@@ -11,7 +11,8 @@ class LoginPage extends Component {
     loggedIn: Pt.bool,
     submitLogin: Pt.func,
     error: Pt.object,
-    profileDataReceived: Pt.bool
+    profileDataReceived: Pt.bool,
+    getUserInfo: Pt.func
   };
 
   submitLogin = event => {
@@ -22,8 +23,7 @@ class LoginPage extends Component {
         const data = values;
         submitLogin(data)
           .then(() => {
-            //Получаем инфу по пользователю
-            //getUserInfo(values.login, token)
+            this.props.getUserInfo();
           });
       }
     });

@@ -3,6 +3,5 @@ module.exports = (err, req, res, next) => {
     'status': 'error',
     'code': '401',
     'message': "Bad Token"
-  });
-  next();
+  }); else next();
 }

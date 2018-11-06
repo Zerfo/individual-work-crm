@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 
 import Login from './Login.container';
 import authActions from '../../actions/auth';
+import { getUserInfo } from '../../actions/user';
 
 const mapStateToProps = store => ({
   loggedIn: store.auth.loggedIn,
@@ -9,7 +10,8 @@ const mapStateToProps = store => ({
 });
 
 const mapActionsToProps = {
-  submitLogin: authActions.login
+  submitLogin: authActions.login,
+  getUserInfo
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Login);

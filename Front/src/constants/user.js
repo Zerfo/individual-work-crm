@@ -1,0 +1,8 @@
+export const SUCCESS_GET_USER_INFO = 'SUCCESS_GET_USER_INFO';
+
+export const FAIL_GET_USER_INFO = 'FAIL_GET_USER_INFO';
+
+export default {
+  SUCCESS_GET_USER_INFO,
+  FAIL_GET_USER_INFO
+};

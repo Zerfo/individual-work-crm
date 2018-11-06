@@ -1,4 +1,5 @@
 import authConstants from '../constants/auth';
+import userConstants from '../constants/user';
 
 const defaultAuthStore = {
   profile: null,
@@ -15,6 +16,16 @@ export default function presentsState (store = defaultAuthStore, action) {
       profile: action.payload.data.attributes,
       profileDataReceived: true,
       loggedIn: true
+    };
+  case userConstants.SUCCESS_GET_USER_INFO:
+    return {
+      ...store,
+      profile: action.payload
+    };
+  case userConstants.FAIL_GET_USER_INFO:
+    return {
+      ...store,
+      error: action.error
     };
   case authConstants.FAIL_LOGIN:
     return {
