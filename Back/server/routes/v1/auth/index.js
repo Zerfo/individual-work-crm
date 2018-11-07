@@ -78,8 +78,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/logout', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
-  const { id } = req.body;
-  console.log(req.body);
+  const id = req.body.data;
   if (!id) {
     return res.status(404).send({
       'status': 'error',

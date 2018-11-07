@@ -32,6 +32,11 @@ export default function presentsState (store = defaultAuthStore, action) {
       ...store,
       error: action.error
     };
+  case authConstants.SUCCESS_LOGOUT:
+    return {
+      ...store,
+      loggedIn: !!localStorage.getItem('token')
+    };
   default:
     return store;
   }

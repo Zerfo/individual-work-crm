@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Pt from 'prop-types';
 
-export default class Profile extends Component {
+import userActions from '../../actions/user';
+
+class Profile extends Component {
+  static propTypes = {
+    getUserInfo: Pt.func
+  };
+
+  componentDidMount () {
+    this.props.getUserInfo();
+  }
+
   render() {
     return (
       <div>
@@ -10,3 +21,9 @@ export default class Profile extends Component {
     );
   }
 }
+
+const mapActionsToProps = {
+  getUserInfo: userActions.getUserInfo
+};
+
+export default connect(null, mapActionsToProps)(Profile);

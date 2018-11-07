@@ -11,7 +11,6 @@ export const getUserInfo = () => {
       const response = await axios.get(URL, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`}
       });
-      console.log(response);
       dispatch({
         type: SUCCESS_GET_USER_INFO,
         payload: response.data.attributes

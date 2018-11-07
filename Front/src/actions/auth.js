@@ -22,9 +22,19 @@ const login = data => {
   };
 };
 
-const logout = () => {
-  localStorage.removeItem('token');
-  return dispatch => dispatch({ type: authConstants.SUCCESS_LOGOUT });
+const logout = data => {
+  const URL = '/api/v1/logout';
+  return async dispatch => {
+    try {
+      await axios.post(URL, qs.stringify({ data }), {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`}
+      });
+      localStorage.removeItem('token');
+      dispatch({ type: authConstants.SUCCESS_LOGOUT });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 };
 
 export default {
