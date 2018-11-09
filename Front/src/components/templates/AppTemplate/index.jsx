@@ -10,7 +10,7 @@ const { Content } = Layout;
 
 export default class AppTemplate extends Component {
   static propTypes = {
-    children: Pt.object,
+    children: Pt.array,
     logout: Pt.func,
     profile: Pt.object
   };
