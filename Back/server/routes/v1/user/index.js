@@ -46,9 +46,10 @@ router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest,  
   });
 });
 
-router.post('/edit', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+router.put('/edit', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
-  const user = await searchUser({ id: jwt.verify(token, config.secret).id });
+  let user = await searchUser({ id: jwt.verify(token, config.secret).id });
+
   if (user === 'Error') return res.status(404).send({
     'status': 'error',
     'code': '404',
@@ -60,13 +61,18 @@ router.post('/edit', jwtMiddleware({ secret: config.secret }), BadTokenRequest, 
   keys.forEach(item => {
     data[`${item}`] = req.body[`${item}`];
   });
-  const a = await user.updateAttributes(JSON.stringify(data));
+  await user.updateAttributes(data);
+  user = await searchUser({ id: jwt.verify(token, config.secret).id });
   return res.status(200).send({
     status: 'Ok',
     code: '200',
     attributes: {
-      ...user,
-      a
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      avatarURL: user.avatarURL
     }
   });
 });
