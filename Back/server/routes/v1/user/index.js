@@ -49,19 +49,24 @@ router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest,  
 router.post('/edit', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const user = await searchUser({ id: jwt.verify(token, config.secret).id });
-
   if (user === 'Error') return res.status(404).send({
     'status': 'error',
     'code': '404',
     'message': 'this user was not found'
   });
-  await user.updateAttributes({ /* Cформированные данные для обновления */ });
+
+  const keys = Object.keys(req.body);
+  const data = {};
+  keys.forEach(item => {
+    data[`${item}`] = req.body[`${item}`];
+  });
+  const a = await user.updateAttributes(JSON.stringify(data));
   return res.status(200).send({
     status: 'Ok',
     code: '200',
     attributes: {
       ...user,
-      //Данные из запроса
+      a
     }
   });
 });
