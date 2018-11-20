@@ -63,6 +63,7 @@ router.put('/edit', jwtMiddleware({ secret: config.secret }), BadTokenRequest, a
   });
   await user.updateAttributes(data);
   user = await searchUser({ id: jwt.verify(token, config.secret).id });
+
   return res.status(200).send({
     status: 'Ok',
     code: '200',
