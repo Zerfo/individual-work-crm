@@ -1,0 +1,55 @@
+.userInfo {
+  &__body__show {
+    height: 70%;
+    width: 100%;
+    padding-left: 15%;
+    font-size: 15px;
+    
+    &__generalInfo {
+      height: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+
+      &__FLName {
+        font-size: 22px;
+        height: 40px;
+        font-weight: 500;
+      }
+      &__username {
+        &__label {
+          font-size: 16px;
+          font-weight: 500;
+          margin-right: 40%;
+        }
+      }
+      &__email {
+        &__label {
+          font-size: 16px;
+          font-weight: 500;
+          margin-right: 11%;
+        }
+      }
+    }
+    &__additionalInfo {
+      height: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;;
+      &__role {
+        &__label {
+          font-size: 16px;
+          font-weight: 500;
+          margin-right: 5%;
+        }
+      }
+      &__id {
+        &__label {
+          font-size: 16px;
+          font-weight: 500;
+          margin-right: 13%;
+        }
+      }
+    }
+  }
+}

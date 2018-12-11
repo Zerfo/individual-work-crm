@@ -4,7 +4,7 @@ import Pt from 'prop-types';
 
 import userActions from '../../actions/user';
 
-import Userdata from '../../components/atoms/Userdata';
+import UserInfo from '../../components/blocks/UserInfo';
 
 class Profile extends Component {
   static propTypes = {
@@ -28,7 +28,7 @@ class Profile extends Component {
     return (
       <div>
         Profile
-        <Userdata data={this.props.userInfo} />
+        <UserInfo userInfo={this.props.userInfo} />
       </div>
     );
   }

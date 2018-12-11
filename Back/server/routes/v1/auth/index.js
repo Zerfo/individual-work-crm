@@ -50,6 +50,7 @@ router.post('/login', async (req, res) => {
     'code': '404',
     'message': "user wasn't found"
   });
+
   const user = await searchUser({ username: login });
   if (user === 'Error' || !compareSync(password, user.password)) {
     return res.status(404).send({
