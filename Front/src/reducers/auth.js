@@ -8,7 +8,7 @@ const defaultAuthStore = {
   error: null
 };
 
-export default function presentsState (store = defaultAuthStore, action) {
+export default function authStore (store = defaultAuthStore, action) {
   switch (action.type) {
   case authConstants.SUCCESS_LOGIN:
     return {
