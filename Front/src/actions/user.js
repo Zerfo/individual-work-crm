@@ -1,7 +1,16 @@
 import axios from 'axios';
+import qs from 'qs';
 
-import { SUCCESS_GET_USER_INFO, FAIL_GET_USER_INFO } from '../constants/user';
-import { SUCCESS_GET_USER_CLAIMS, FAIL_GET_USER_CLAIMS } from '../constants/claims';
+import {
+  SUCCESS_GET_USER_INFO,
+  SUCCESS_PUT_USER_INFO,
+  FAIL_GET_USER_INFO,
+  FAIL_PUT_USER_INFO
+} from '../constants/user';
+import {
+  SUCCESS_GET_USER_CLAIMS,
+  FAIL_GET_USER_CLAIMS
+} from '../constants/claims';
 
 
 export const getUserInfo = () => {
@@ -32,6 +41,27 @@ export const getUserInfo = () => {
   };
 };
 
+export const editUser = data => {
+  const URL = 'api/v1/user/edit';
+  return async dispatch => {
+    try {
+      const response = await axios.put(URL, qs.stringify({ ...data }), {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`}
+      });
+      dispatch({
+        type: SUCCESS_PUT_USER_INFO,
+        payload: response.data.attributes
+      });
+    } catch (err) {
+      dispatch({
+        type: FAIL_PUT_USER_INFO,
+        error: err.response.data.message
+      });
+    }
+  };
+};
+
 export default {
-  getUserInfo
+  getUserInfo,
+  editUser
 };

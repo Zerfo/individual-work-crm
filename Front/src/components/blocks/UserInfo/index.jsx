@@ -12,6 +12,7 @@ const ButtonGroup = Button.Group;
 
 export default class UserInfo extends Component {
   static propTypes = {
+    editUser: Pt.func,
     userInfo: Pt.shape({
       id: Pt.number,
       userRole: Pt.string,
@@ -36,13 +37,24 @@ export default class UserInfo extends Component {
   };
 
   state = {
-    componentType: 'show' // show - отображает дпнные, edit - редактирует
+    componentType: 'show', // show - отображает дпнные, edit - редактирует
+    avatarURL: this.props.userInfo && this.props.userInfo.avatarURL || '',
+    lastName: this.props.userInfo && this.props.userInfo.lastName || '',
+    firstName: this.props.userInfo && this.props.userInfo.firstName || ''
   }
 
+  getAvatarURL = value => this.setState({ avatarURL: value });
+  getLastName = value => this.setState({ lastName: value });
+  getFirstName = value => this.setState({ firstName: value });
+
   onEditUserInfo = () => this.setState({ componentType: 'edit' });
-  onSaveNewUserInfo = () => {
-    // отправляем запрос на изменение данных
-    // обновляем данные пользователя в приложении
+  onSaveNewUserInfo = async () => {
+    const data = {
+      avatarURL: this.state.avatarURL,
+      lastName: this.state.lastName,
+      firstName: this.state.firstName
+    };
+    await this.props.editUser(data);
     this.setState({ componentType: 'show' });
   }
   onShowUserInfo = () => this.setState({ componentType: 'show' });
@@ -52,7 +64,19 @@ export default class UserInfo extends Component {
       <div className='userInfo-container'>
         { this.state.componentType === 'show'
           ? <ShowUserInfo userInfo={this.props.userInfo} />
-          : <EditUserInfo userInfo={this.props.userInfo} />
+          : <EditUserInfo
+            userInfo={this.props.userInfo}
+            value={{
+              avatarURL: this.state.avatarURL,
+              lastName: this.state.lastName,
+              firstName: this.state.firstName
+            }}
+            getValue={{
+              getAvatarURL: this.getAvatarURL,
+              getLastName: this.getLastName,
+              getFirstName: this.getFirstName
+            }}
+          />
         }
         <div className='userInfo__footer'>
           { this.state.componentType === 'show'

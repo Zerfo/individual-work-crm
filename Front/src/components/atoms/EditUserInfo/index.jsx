@@ -17,14 +17,23 @@ const ShowUserInfo = (props) => (
           icon="download"
           size='large'
         />
+        { props.value.avatarURL }
       </div>
       <div className='userInfo__body__edit__generalInfo__lastName'>
         <label className='userInfo__body__edit__generalInfo__lastName__label'>Фамилия:</label>
-        <Input className='userInfo__body__edit__generalInfo__lastName__input' />
+        <Input
+          defaultValue={props.value.lastName}
+          onChange={event => props.getValue.getLastName(event.target.value)}
+          className='userInfo__body__edit__generalInfo__lastName__input'
+        />
       </div>
       <div className='userInfo__body__edit__generalInfo__firstName'>
         <label className='userInfo__body__edit__generalInfo__firstName__label'>Имя:</label>
-        <Input className='userInfo__body__edit__generalInfo__firstName__input' />
+        <Input
+          defaultValue={props.value.firstName}
+          onChange={event => props.getValue.getFirstName(event.target.value)}
+          className='userInfo__body__edit__generalInfo__firstName__input'
+        />
       </div>
       <div className='userInfo__body__edit__generalInfo__username'>
         <label className='userInfo__body__edit__generalInfo__username__label'>Логин:</label>
@@ -57,6 +66,16 @@ ShowUserInfo.propTypes = {
     firstName: Pt.string,
     lastName: Pt.string,
     avatarURL: Pt.string
+  }),
+  value: Pt.shape({
+    avatarURL: Pt.string,
+    lastName: Pt.string,
+    firstName: Pt.string
+  }),
+  getValue: Pt.shape({
+    getAvatarURL: Pt.func,
+    getLastName: Pt.func,
+    getFirstName: Pt.func
   })
 };
 

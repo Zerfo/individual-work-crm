@@ -58,12 +58,15 @@ router.put('/edit', jwtMiddleware({ secret: config.secret }), BadTokenRequest, a
 
   const keys = Object.keys(req.body);
   const data = {};
+  console.log('-----------------------------------------------------------------------');
+  console.log(req.body);
   keys.forEach(item => {
     data[`${item}`] = req.body[`${item}`];
   });
   await user.updateAttributes(data);
   user = await searchUser({ id: jwt.verify(token, config.secret).id });
-
+  console.log('-----------------------------------------------------------------------');
+  console.log(user);
   return res.status(200).send({
     status: 'Ok',
     code: '200',

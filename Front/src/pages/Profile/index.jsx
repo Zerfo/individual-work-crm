@@ -9,6 +9,7 @@ import UserInfo from '../../components/blocks/UserInfo';
 class Profile extends Component {
   static propTypes = {
     getUserInfo: Pt.func,
+    editUser: Pt.func,
     userInfo: Pt.shape({
       id: Pt.number,
       userRole: Pt.string,
@@ -28,7 +29,10 @@ class Profile extends Component {
     return (
       <div>
         Profile
-        <UserInfo userInfo={this.props.userInfo} />
+        <UserInfo
+          userInfo={this.props.userInfo}
+          editUser={this.props.editUser}
+        />
       </div>
     );
   }
@@ -38,7 +42,8 @@ const mapStateToProps = store => ({
   userInfo: store.auth.profile
 });
 const mapActionsToProps = {
-  getUserInfo: userActions.getUserInfo
+  getUserInfo: userActions.getUserInfo,
+  editUser: userActions.editUser
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Profile);

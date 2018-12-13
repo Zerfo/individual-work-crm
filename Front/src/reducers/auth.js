@@ -37,6 +37,16 @@ export default function presentsState (store = defaultAuthStore, action) {
       ...store,
       loggedIn: !!localStorage.getItem('token')
     };
+  case userConstants.SUCCESS_PUT_USER_INFO:
+    return {
+      ...store,
+      profile: action.payload
+    };
+  case userConstants.FAIL_PUT_USER_INFO:
+    return {
+      ...store,
+      error: action.error
+    };
   default:
     return store;
   }

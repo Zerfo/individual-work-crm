@@ -38,14 +38,12 @@ module.exports = sequelize.define('user', {
   firstName: {
     type: Sequelize.TEXT,
     validate: {
-      is: ["^[a-z]+$",'i'],
       len: [4, 20]
     }
   },
   lastName: {
     type: Sequelize.TEXT,
     validate: {
-      is: ["^[a-z]+$",'i'],
       len: [4, 20]
     }
   },
