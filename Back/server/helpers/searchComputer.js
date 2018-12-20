@@ -2,9 +2,9 @@ const Computer = require('../../database/schemas/computer');
 
 const searchComputer = async data => {
   await Computer.sync();
-  const сomputer = await Computer.findOne({ where: { ...data } });
-  if (!сomputer) return 'Error';
-  return сomputer;
+  const ?omputer = await Computer.findOne({ where: { ...data } });
+  if (!?omputer) return 'Error';
+  return ?omputer;
 }
 
 module.exports = searchComputer;

@@ -198,4 +198,6 @@ router.post('/claims/new_comment', jwtMiddleware({ secret: config.secret }), Bad
   })
 });
 
+// TODO: Написать метод закрытия заявки пользователем с указанием причины в комментах;
+
 module.exports = router;
