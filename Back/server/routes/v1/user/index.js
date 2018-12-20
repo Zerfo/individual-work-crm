@@ -88,7 +88,10 @@ router.put('/edit', jwtMiddleware({ secret: config.secret }), BadTokenRequest, a
 
 router.get('/claims', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
-  const claims = await searchClaim.userClaim({ id: jwt.verify(token, config.secret).id });
+  const claims = await searchClaim.userClaim({
+    userID: jwt.verify(token, config.secret).id,
+    id: req.body.data.claimId
+  });
   if (claims !== 'Error') {
     return res.status(200).send({
       status: 'Ok',
@@ -114,7 +117,7 @@ router.get('/claims', jwtMiddleware({ secret: config.secret }), BadTokenRequest,
 
 router.get('/computer/my',  jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
-  const computer = await searchComputer.userComputer({ id: jwt.verify(token, config.secret).id });
+  const computer = await searchComputer.userComputer({ userID: jwt.verify(token, config.secret).id });
   if (computer !== 'Error') {
     return res.status(200).send({
       status: 'Ok',
@@ -164,7 +167,35 @@ router.post('/claims/add', jwtMiddleware({ secret: config.secret }), BadTokenReq
     });
 
 router.post('/claims/new_comment', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];  
+  const claim = await searchClaim.userClaim({
+    userID: jwt.verify(token, config.secret).id,
+    id: req.body.data.claimId
+  });
+  const comment = req.body.data.comment;
 
+  const comments =  {
+    'commentsClaim': JSON.parse(claim.commentsClaim).concat(comment)
+  };
+
+  await claim.updateAttributes(comments);
+  claim = await searchClaim.userClaim({
+    userID: jwt.verify(token, config.secret).id,
+    id: req.body.data.claimId
+  });
+
+  return res.status(200).send({
+    status: 'Ok',
+    code: '200',
+    attributes: {
+      id: claim.id,
+      statusClaim: claim.statusClaim,
+      nameClaim: claim.nameClaim,
+      descriptionClaim: claim.descriptionClaim,
+      commentsClaim: JSON.parse(claim.commentsClaim),
+      resolveClaim: claim.resolveClaim,
+    }
+  })
 });
 
 module.exports = router;

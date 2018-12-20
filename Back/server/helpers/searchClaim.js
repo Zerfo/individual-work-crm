@@ -1,8 +1,8 @@
 const Claim = require('../../database/schemas/claim');
 
-const userClaim = async userID => {
+const userClaim = async data => {
   await Claim.sync();
-  const claims = await Claim.findAll({ where: userID });
+  const claims = await Claim.findAll({ where: { ...data } });
   if (!claims) return 'Error';
   return claims;
 }
