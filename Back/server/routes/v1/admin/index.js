@@ -3,6 +3,9 @@ const router = express.Router();
 const jwtMiddleware = require('express-jwt');
 const jwt = require('jsonwebtoken');
 
+const Claim = require('../../../../database/schemas/claim');
+const Computer = require('../../../../database/schemas/computer');
+
 const config = require('../../../config');
 
 router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
