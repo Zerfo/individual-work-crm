@@ -4,10 +4,12 @@ const jwtMiddleware = require('express-jwt');
 const jwt = require('jsonwebtoken');
 
 const Claim = require('../../../../database/schemas/claim');
+const Computer = require('../../../../database/schemas/computer');
 
 const config = require('../../../config');
 const searchUser = require('../../../helpers/searchUser');
 const searchClaim = require('../../../helpers/searchClaim');
+const searchComputer = require('../../../helpers/searchComputer');
 const BadTokenRequest = require('../../../helpers/BadToken');
 
 const createClaim = claimData => Claim.create({
@@ -22,6 +24,7 @@ router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest,  
   const token = req.headers.authorization.split(' ')[1];
   const user = await searchUser({ id: jwt.verify(token, config.secret).id });
   const claims = await searchClaim.userClaim({ id: jwt.verify(token, config.secret).id });
+  const computer = await searchComputer.userComputer({ id: jwt.verify(token, config.secret).id });
 
   return res.status(200).send({
     status: 'Ok',
@@ -42,6 +45,12 @@ router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest,  
       descriptionClaim: item.descriptionClaim,
       commentsClaim: item.commentsClaim,
       resolveClaim: item.resolveClaim,
+    })) : null,
+    computer: computer.length !== 0 ? computer.map(item => ({
+      specifications: JSON.parse(item.specifications),
+      pictureURL: item.pictureURL,
+      underRepair: item.underRepair,
+      cabinetNumber: item.cabinetNumber
     })) : null
   });
 });
@@ -98,8 +107,33 @@ router.get('/claims', jwtMiddleware({ secret: config.secret }), BadTokenRequest,
     return res.status(404).send({
       status: 'Error',
       code: '404',
-      'message': "claims wasn't found"
+      message: "claims wasn't found"
+    });
+  }
+});
+
+router.get('/computer/my',  jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const computer = await searchComputer.userComputer({ id: jwt.verify(token, config.secret).id });
+  if (computer !== 'Error') {
+    return res.status(200).send({
+      status: 'Ok',
+      code: '200',
+      data: {
+        computer: computer.length !== 0 ? computer.map(item => ({
+          specifications: JSON.parse(item.specifications),
+          pictureURL: item.pictureURL,
+          underRepair: item.underRepair,
+          cabinetNumber: item.cabinetNumber
+        })) : null
+      }
     })
+  } else {
+    return res.status(404).send({
+      status: 'Error',
+      code: '404',
+      message: "Computer wasn't found"
+    });
   }
 });
 
