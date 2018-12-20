@@ -195,7 +195,7 @@ router.post('/claims/new_comment', jwtMiddleware({ secret: config.secret }), Bad
       commentsClaim: JSON.parse(claim.commentsClaim),
       resolveClaim: claim.resolveClaim,
     }
-  })
+  });
 });
 
 // TODO: Написать метод закрытия заявки пользователем с указанием причины в комментах;
