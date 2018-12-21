@@ -1,0 +1,13 @@
+.userComputer-container {
+  width: 100%;
+  height: 50%;
+  border: 1px solid #383838;
+  border-radius: 15px;
+  padding: 1% 3%;
+
+  &__body {
+    &__p {
+      font-style: italic;
+    }
+  }
+}

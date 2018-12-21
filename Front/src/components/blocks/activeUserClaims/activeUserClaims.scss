@@ -1,0 +1,30 @@
+.userClaims-container {
+  width: 100%;
+  height: 45%;
+  border: 1px solid #383838;
+  border-radius: 15px;
+  padding: 1% 3%;
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+
+    &__h2 {
+      width: 300px;
+    }
+    &__a {
+      padding-top: .6%;
+      text-decoration: underline;
+
+      &:hover {
+        color: #ff4169;
+        text-decoration: underline;
+      }
+    }
+  }
+  &__body {
+    &__p {
+      font-style: italic;
+    }
+  }
+}

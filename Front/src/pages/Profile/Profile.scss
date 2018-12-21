@@ -1,0 +1,14 @@
+.profile {
+  &__sections {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 3%;
+
+    &__right {
+      width: 65%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+}

@@ -4,8 +4,10 @@ import {
 
 import auth from './auth';
 import claims from './claims';
+import computer from './computer';
 
 export default combineReducers({
   auth,
-  claims
+  claims,
+  computer
 });
