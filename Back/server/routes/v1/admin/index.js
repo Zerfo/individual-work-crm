@@ -7,6 +7,10 @@ const Claim = require('../../../../database/schemas/claim');
 const Computer = require('../../../../database/schemas/computer');
 
 const config = require('../../../config');
+const searchUser = require('../../../helpers/searchUser');
+const searchClaim = require('../../../helpers/searchClaim');
+const searchComputer = require('../../../helpers/searchComputer');
+const BadTokenRequest = require('../../../helpers/BadToken');
 
 router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
@@ -74,15 +78,23 @@ router.post('/edit', jwtMiddleware({ secret: config.secret }), BadTokenRequest, 
   });
 });
 
-router.get('claims/all', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+router.get('/claims/all', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+  const claim = await searchClaim.getAllClaim();
 
+  return res.status(200).send({
+    status: 'Ok',
+    code: '200',
+    attributes: {
+      claim
+    }
+  });
 });
 
 router.delete('claims/delete', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
 
 });
 
-router.post('claims/new_comment', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+router.post('/claims/new_comment', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];  
   const claim = await searchClaim.userClaim({
     userID: jwt.verify(token, config.secret).id,
@@ -114,22 +126,24 @@ router.post('claims/new_comment', jwtMiddleware({ secret: config.secret }), BadT
   });
 });
 
-router.put('claims/update', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+router.put('/claims/update', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
 
 });
 
-router.get('computers/take_user', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+router.get('/computers/take_user', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
 
 });
 
-router.post('computers/add',jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+router.post('/computers/add',jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
 
 });
 
-router.post('computers/reset',jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+router.post('/computers/reset',jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
 
 });
 
-router.get('computers/all',jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+router.get('/computers/all',jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
 
 });
+
+module.exports = router;

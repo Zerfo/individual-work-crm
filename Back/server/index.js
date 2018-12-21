@@ -10,7 +10,7 @@ const config = require('./config');
 //import routes
 const authModule = require('./routes/v1/auth');
 const userModule = require('./routes/v1/user');
-const adminModule = require('./routes/v1/user');
+const adminModule = require('./routes/v1/admin');
 
 const app = express();
 const port = '5000';

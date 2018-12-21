@@ -19,12 +19,21 @@ const nameClaim = async nameClaim => {
   return claims;
 }
 
+const getAllClaim = async () => {
+  await Claim.sync();
+  const claims = await Claim.findAll();
+  if (!claims) return 'Error';
+  return claims;
+}
+
 module.exports = userClaim;
 module.exports = computerClaim;
 module.exports = nameClaim;
+module.exports = getAllClaim;
 
 module.exports = {
   userClaim,
   computerClaim,
-  nameClaim
+  nameClaim,
+  getAllClaim
 }
