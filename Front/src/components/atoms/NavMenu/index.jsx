@@ -9,7 +9,7 @@ import './NavMenu.scss';
 
 const NavMenu = props => props.role === ADMIN
   ? <NavMenuAdmin onClick={props.onClick} isExpaded={props.isExpaded} />
-  : <NavMenuUser />;
+  : <NavMenuUser onClick={props.onClick} isExpaded={props.isExpaded} />;
 
 NavMenu.propTypes = {
   role: Pt.string,
