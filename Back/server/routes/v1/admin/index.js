@@ -3,7 +3,6 @@ const router = express.Router();
 const jwtMiddleware = require('express-jwt');
 const jwt = require('jsonwebtoken');
 
-const Claim = require('../../../../database/schemas/claim');
 const Computer = require('../../../../database/schemas/computer');
 
 const config = require('../../../config');
@@ -11,6 +10,13 @@ const searchUser = require('../../../helpers/searchUser');
 const searchClaim = require('../../../helpers/searchClaim');
 const searchComputer = require('../../../helpers/searchComputer');
 const BadTokenRequest = require('../../../helpers/BadToken');
+
+const createComputer = computerData => Computer.create({
+  specifications: computerData.specifications,
+  pictureURL: computerData.pictureURL,
+  underRepair: computerData.underRepair,
+  cabinetNumber: computerData.cabinetNumber,
+});
 
 router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
@@ -90,10 +96,6 @@ router.get('/claims/all', jwtMiddleware({ secret: config.secret }), BadTokenRequ
   });
 });
 
-router.delete('claims/delete', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
-
-});
-
 router.post('/claims/new_comment', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];  
   const claim = await searchClaim.userClaim({
@@ -127,7 +129,34 @@ router.post('/claims/new_comment', jwtMiddleware({ secret: config.secret }), Bad
 });
 
 router.put('/claims/update', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+  let claim = await searchClaim.userClaim({ id: req.body.data.id });
 
+  if (claim === 'Error') return res.status(404).send({
+    'status': 'error',
+    'code': '404',
+    'message': 'this user was not found'
+  });
+
+  const keys = Object.keys(req.body);
+  const data = {};
+  keys.forEach(item => {
+    data[`${item}`] = req.body[`${item}`];
+  });
+  await claim.updateAttributes(data);
+  claim = await searchClaim.userClaim({ id: req.body.data.id });
+
+  return res.status(200).send({
+    status: 'Ok',
+    code: '200',
+    attributes: {
+      id: claim.id,
+      statusClaim: claim.statusClaim,
+      nameClaim: claim.nameClaim,
+      descriptionClaim: claim.descriptionClaim,
+      commentsClaim: JSON.parse(claim.commentsClaim),
+      resolveClaim: claim.resolveClaim,
+    }
+  });
 });
 
 router.get('/computers/take_user', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {

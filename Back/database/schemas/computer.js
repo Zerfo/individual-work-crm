@@ -15,7 +15,7 @@ module.exports = sequelize.define('computer', {
     defaultValue: 0
   },
   claimID: {
-    type: Sequelize.INTEGER
+    type: Sequelize.TEXT // Массив в JSON строке
   },
   userID: {
     type: Sequelize.INTEGER

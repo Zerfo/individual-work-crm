@@ -30,7 +30,7 @@ export default class MainHeader extends Component {
       { this.props.profile ? <NavMenu
         onClick={event => this.handleToogle(event)}
         isExpaded={isExpaded}
-        role={this.props.profile.userRoleID} /> : null
+        role={this.props.profile.userRole} /> : null
       }
       { this.props.profile ? <HeaderProfile
         logout={this.props.logout}

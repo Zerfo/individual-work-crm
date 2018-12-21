@@ -23,7 +23,7 @@ module.exports = sequelize.define('claim', {
     allowNull: false
   },
   commentsClaim: {
-    type: Sequelize.TEXT, //Массив в JSON строке
+    type: Sequelize.TEXT, // Массив в JSON строке
     allowNull: true
   },
   resolveClaim: {
