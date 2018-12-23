@@ -1,11 +1,11 @@
 import computerConstants from '../constants/computer';
 
-const defaultClaimsStore = {
+const defaultComputerStore = {
   computer: null,
   err: null
 };
 
-export default function computerStore (store = defaultClaimsStore, action) {
+export default function computerStore (store = defaultComputerStore, action) {
   switch (action.type) {
   case computerConstants.SUCCESS_GET_USER_COMPUTER:
     return {

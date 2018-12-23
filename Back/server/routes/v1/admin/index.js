@@ -12,10 +12,11 @@ const searchComputer = require('../../../helpers/searchComputer');
 const BadTokenRequest = require('../../../helpers/BadToken');
 
 const createComputer = computerData => Computer.create({
-  specifications: computerData.specifications,
+  specifications: computerData.specifications ? computerData.specifications : '',
   pictureURL: computerData.pictureURL,
   underRepair: computerData.underRepair,
   cabinetNumber: computerData.cabinetNumber,
+  userID: computerData.userID ? computerData.userID : null
 });
 
 router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
@@ -164,7 +165,29 @@ router.get('/computers/take_user', jwtMiddleware({ secret: config.secret }), Bad
 });
 
 router.post('/computers/add',jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
-
+  Computer.sync()
+  .then(() => {
+    createComputer(req.body)
+      .then(rez => res.status(200).send({
+        'status': 'OK',
+        'code': '200',
+        'data': {
+          'type': 'registration',
+          'id': rez.id
+        }
+      }))
+      .catch(err => res.status(404).send({
+        'status': 'ERROR',
+        'code': '404',
+        'name': err.name,
+        'errors': {
+          'massage': err.errors[0].message,
+          'type': err.errors[0].type,
+          'origin': err.errors[0].origin,
+          'description': `Введен не уникальный ${err.errors[0].path}`
+          }
+        }));
+      });
 });
 
 router.post('/computers/reset',jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
