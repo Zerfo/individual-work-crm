@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Pt from 'prop-types';
 
-import ClaimCard from '../../atoms/ClaimCard';
-
 import './activeUserClaims.scss';
 
 export default class ActiveUserClaims extends Component {
@@ -16,6 +14,9 @@ export default class ActiveUserClaims extends Component {
 
   render() {
     const { claims } = this.props;
+
+    const showSmallClaim = claim => null;
+
     return (
       <div className="userClaims-container">
         <div className="userClaims-container__title">
@@ -28,7 +29,7 @@ export default class ActiveUserClaims extends Component {
               ? <p className="userClaims-container__body__p">
                 На данный момент у вас нет активных заявок.
               </p>
-              : claims.map((item, index) => <ClaimCard key={index} claim={item} />)
+              : claims.map((item, index) => showSmallClaim(item))
           }
         </div>
       </div>
