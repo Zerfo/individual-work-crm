@@ -11,6 +11,10 @@ import {
   SUCCESS_GET_USER_CLAIMS,
   FAIL_GET_USER_CLAIMS
 } from '../constants/claims';
+import {
+  SUCCESS_GET_USER_COMPUTER,
+  FAIL_GET_USER_COMPUTER
+} from '../constants/computer';
 
 
 export const getUserInfo = () => {
@@ -28,6 +32,10 @@ export const getUserInfo = () => {
         type: SUCCESS_GET_USER_CLAIMS,
         payload: response.data.userClaims
       });
+      dispatch({
+        type: SUCCESS_GET_USER_COMPUTER,
+        payload: response.data.computer
+      });
     } catch (err) {
       dispatch({
         type: FAIL_GET_USER_INFO,
@@ -35,6 +43,10 @@ export const getUserInfo = () => {
       });
       dispatch({
         type: FAIL_GET_USER_CLAIMS,
+        error: err.response.data.message
+      });
+      dispatch({
+        type: FAIL_GET_USER_COMPUTER,
         error: err.response.data.message
       });
     }
