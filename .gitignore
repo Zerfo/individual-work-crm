@@ -5,7 +5,7 @@ target/
 .idea
 .gradle
 *.iml
-
+/Back/database/test.sqlite
 
 # dependencies
 /node_modules
