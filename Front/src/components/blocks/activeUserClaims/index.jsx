@@ -18,10 +18,14 @@ export default class ActiveUserClaims extends Component {
 
   state = {
     showModalMoreInfo: false,
-    showModalAddClaim: false
+    showModalAddClaim: false,
+    claim: null
   }
 
-  showMoreInfo = () => this.setState({ showModalMoreInfo: !this.state.showModalMoreInfo });
+  showMoreInfo = claim => this.setState({
+    claim,
+    showModalMoreInfo: !this.state.showModalMoreInfo
+  });
   showAddClaim = () => this.setState({ showModalAddClaim: !this.state.showModalAddClaim });
 
   render() {
@@ -36,7 +40,7 @@ export default class ActiveUserClaims extends Component {
           <div className="claim__name">{claim.nameClaim}</div>
           <div className="claim__description">{claim.descriptionClaim}</div>
           <div className="claim__dateCreate">{dateClaim}</div>
-          <a className="claim__a" onClick={this.showMoreInfo}>Подробнее</a>
+          <a className="claim__a" onClick={() => this.showMoreInfo(claim)}>Подробнее</a>
         </div>
       );
     };
@@ -65,7 +69,10 @@ export default class ActiveUserClaims extends Component {
         }
         {this.state.showModalMoreInfo
           && <ModalTemplate onClose={this.showMoreInfo}>
-            <ShowClaim onClose={this.showMoreInfo}/>
+            <ShowClaim
+              claim={this.state.claim}
+              onClose={this.showMoreInfo}
+            />
           </ModalTemplate>
         }
       </div>

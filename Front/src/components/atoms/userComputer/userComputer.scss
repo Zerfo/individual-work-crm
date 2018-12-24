@@ -13,4 +13,7 @@
 }
 .computer {
   display: flex;
+  &__right {
+    margin-left: 12%;
+  }
 }
