@@ -1,0 +1,52 @@
+.card {
+  cursor: default;
+  width: 300px;
+  height: 200px;
+  border: 1px solid #383838;
+  border-radius: 15px;
+  padding: 1% 1%;
+  margin-top: 2%;
+  margin-left: 3.5%;
+
+  &__id {
+    position: relative;
+    left: 0;
+    top: -7%;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+  }
+  &__a {
+    padding-top: .6%;
+    text-decoration: underline;
+    float: right;
+
+    &:hover {
+      color: #ff4169;
+      text-decoration: underline;
+    }
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -2%;
+    &__h3 {
+      padding: 0;
+    }
+    &__status {
+      padding-top: .5%;
+    }
+  }
+  &__body {
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-content: space-between;
+    &__description {
+      height: 65px;
+      white-space: pre-line;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}

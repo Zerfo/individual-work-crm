@@ -10,7 +10,10 @@ export default function computerStore (store = defaultComputerStore, action) {
   case computerConstants.SUCCESS_GET_USER_COMPUTER:
     return {
       ...store,
-      computer: action.payload
+      computer: {
+        ...action.payload,
+        specifications: JSON.parse(action.payload.specifications)
+      }
     };
   case computerConstants.FAIL_GET_USER_COMPUTER:
     return {

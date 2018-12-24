@@ -25,3 +25,8 @@ a:focus {
   font-size: 12px;
   padding: 0 24px;
 }
+
+#modal {
+  position: absolute;
+  margin-top: 15%;
+}

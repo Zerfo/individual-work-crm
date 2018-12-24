@@ -73,7 +73,28 @@ export const editUser = data => {
   };
 };
 
+export const getClaims = () => {
+  const URL = 'api/v1/user/claims';
+  return async dispatch => {
+    try {
+      const response = await axios.get(URL, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`}
+      });
+      dispatch({
+        type: SUCCESS_GET_USER_CLAIMS,
+        payload: response.data.data.claims
+      });
+    } catch (err) {
+      dispatch({
+        type: FAIL_GET_USER_CLAIMS,
+        error: err.response.data.message
+      });
+    }
+  };
+};
+
 export default {
   getUserInfo,
-  editUser
+  editUser,
+  getClaims
 };

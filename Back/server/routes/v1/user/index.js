@@ -40,6 +40,7 @@ router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest,  
       avatarURL: user.avatarURL
     },
     userClaims: claims !== 'Error' && claims.length !== 0 ? claims.map(item => ({
+      id: item.id,
       statusClaim: item.statusClaim,
       nameClaim: item.nameClaim,
       descriptionClaim: item.descriptionClaim,
@@ -47,12 +48,7 @@ router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest,  
       resolveClaim: item.resolveClaim,
       createdAt: item.createdAt
     })) : null,
-    computer: computer.length !== 0 ? computer.map(item => ({
-      specifications: JSON.parse(item.specifications),
-      pictureURL: item.pictureURL,
-      underRepair: item.underRepair,
-      cabinetNumber: item.cabinetNumber
-    })) : null
+    computer: computer.length !== 0 ? computer[0] : null
   });
 });
 
@@ -89,23 +85,13 @@ router.put('/edit', jwtMiddleware({ secret: config.secret }), BadTokenRequest, a
 
 router.get('/claims', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
-  const claims = await searchClaim.userClaim({
-    userID: jwt.verify(token, config.secret).id,
-    id: req.body.data.claimId
-  });
+  const claims = await searchClaim.userClaim({ id: jwt.verify(token, config.secret).id });
   if (claims !== 'Error') {
     return res.status(200).send({
       status: 'Ok',
       code: '200',
       data: {
-        claims: claims.length !== 0 ? claims.map(item => ({
-          statusClaim: item.statusClaim,
-          nameClaim: item.nameClaim,
-          descriptionClaim: item.descriptionClaim,
-          commentsClaim: item.commentsClaim,
-          resolveClaim: item.resolveClaim,
-          createdAt: item.createdAt
-        })) : null
+        claims: claims.length !== 0 ? claims.map(item => item) : null
       }
     });
   } else {
@@ -125,12 +111,7 @@ router.get('/computer/my',  jwtMiddleware({ secret: config.secret }), BadTokenRe
       status: 'Ok',
       code: '200',
       data: {
-        computer: computer.length !== 0 ? computer.map(item => ({
-          specifications: JSON.parse(item.specifications),
-          pictureURL: item.pictureURL,
-          underRepair: item.underRepair,
-          cabinetNumber: item.cabinetNumber
-        })) : null
+        computer: computer.length !== 0 ? computer[0] : null
       }
     })
   } else {
