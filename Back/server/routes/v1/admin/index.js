@@ -164,6 +164,18 @@ router.get('/computers/take_user', jwtMiddleware({ secret: config.secret }), Bad
 
 });
 
+router.get('/computers', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+  const computers = await searchComputer.getAllComputer();
+
+  return res.status(200).send({
+    status: 'Ok',
+    code: '200',
+    attributes: {
+      computers
+    }
+  });
+});
+
 router.post('/computers/add',jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   Computer.sync()
   .then(() => {

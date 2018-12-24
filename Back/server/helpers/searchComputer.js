@@ -6,9 +6,17 @@ const userComputer = async data => {
   if (!computer) return 'Error';
   return computer;
 }
+const getAllComputer = async () => {
+  await Computer.sync();
+  const computer = await Computer.findAll();
+  if (!computer) return 'Error';
+  return computer;
+}
 
 module.exports = userComputer;
+module.exports = getAllComputer;
 
 module.exports = {
-  userComputer
+  userComputer,
+  getAllComputer
 }

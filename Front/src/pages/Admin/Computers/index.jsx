@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import Pt from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class AdminComputers extends Component {
+import adminActions from '../../../actions/admin';
+
+class AdminComputers extends Component {
+  static propTypes = {
+    getComputers: Pt.func
+  };
+
+  componentDidMount() {
+    this.props.getComputers();
+  }
+
   render() {
     return (
       <div>
@@ -10,3 +21,12 @@ export default class AdminComputers extends Component {
     );
   }
 }
+
+const mapStateToProps = store => ({
+  computers: store.computer.computers
+});
+const mapActionsToProps = {
+  getComputers: adminActions.getComputers
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(AdminComputers);

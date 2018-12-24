@@ -11,6 +11,10 @@ import {
   SUCCESS_GET_USER_CLAIMS,
   FAIL_GET_USER_CLAIMS
 } from '../constants/claims';
+import {
+  SUCCESS_GET_USER_COMPUTERS,
+  FAIL_GET_USER_COMPUTERS
+} from '../constants/computer';
 
 
 export const getAdminInfo = () => {
@@ -81,8 +85,29 @@ export const getClaims = () => {
   };
 };
 
+export const getComputers = () => {
+  const URL = 'api/v1/admin/computers';
+  return async dispatch => {
+    try {
+      const response = await axios.get(URL, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`}
+      });
+      dispatch({
+        type: SUCCESS_GET_USER_COMPUTERS,
+        payload: response.data.attributes.computers
+      });
+    } catch (err) {
+      dispatch({
+        type: FAIL_GET_USER_COMPUTERS,
+        error: err
+      });
+    }
+  };
+};
+
 export default {
   getAdminInfo,
   editAdmin,
-  getClaims
+  getClaims,
+  getComputers
 };
