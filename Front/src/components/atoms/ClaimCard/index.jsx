@@ -53,7 +53,10 @@ export default class ClaimCard extends Component {
         <a className="card__a" onClick={this.showMoreInfo}>Подробнее</a>
         {this.state.showModalMoreInfo
           && <ModalTemplate onClose={this.showMoreInfo}>
-            <ShowClaim onClose={this.showMoreInfo}/>
+            <ShowClaim
+              onClose={this.showMoreInfo}
+              claim={this.props.claim}
+            />
           </ModalTemplate>
         }
       </div>

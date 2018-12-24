@@ -37,9 +37,13 @@
 
   &__name {
     width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   &__description {
     width: 300px;
+    margin-left: 5%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;

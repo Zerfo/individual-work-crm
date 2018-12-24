@@ -1,0 +1,45 @@
+.addClaimModal {
+  &__exit {
+    cursor: pointer;
+    width: 27px;
+    height: 27px;
+    position: absolute;
+    top: 24px;
+    right: 24px;
+  }
+  &__h2 {
+
+  }
+  &__main {
+    &__name {
+      margin-top: 2%;
+      &__text {
+
+      }
+      &__input {
+
+      }
+    }
+    &__description {
+      margin-top: 3%;
+      &__text {
+
+      }
+      &__input {
+        
+      }
+    }
+  }
+  &__footer {
+    margin-top: 5%;
+    display: flex;
+
+    &__submit {
+      width: 150px;
+    }
+    &__cancel {
+      width: 120px;
+      margin-left: 12%;
+    }
+  }
+}

@@ -9,18 +9,12 @@ import {
 } from '../constants/user';
 import {
   SUCCESS_GET_USER_CLAIMS,
-  SUCCESS_CREATE_USER_CLAIMS,
-  FAIL_GET_USER_CLAIMS,
-  FAIL_CREATE_USER_CLAIMS
+  FAIL_GET_USER_CLAIMS
 } from '../constants/claims';
-import {
-  SUCCESS_GET_USER_COMPUTER,
-  FAIL_GET_USER_COMPUTER
-} from '../constants/computer';
 
 
-export const getUserInfo = () => {
-  const URL = '/api/v1/user/info';
+export const getAdminInfo = () => {
+  const URL = '/api/v1/admin/info';
   return async dispatch => {
     try {
       const response = await axios.get(URL, {
@@ -34,10 +28,6 @@ export const getUserInfo = () => {
         type: SUCCESS_GET_USER_CLAIMS,
         payload: response.data.userClaims
       });
-      dispatch({
-        type: SUCCESS_GET_USER_COMPUTER,
-        payload: response.data.computer
-      });
     } catch (err) {
       dispatch({
         type: FAIL_GET_USER_INFO,
@@ -47,16 +37,12 @@ export const getUserInfo = () => {
         type: FAIL_GET_USER_CLAIMS,
         error: err
       });
-      dispatch({
-        type: FAIL_GET_USER_COMPUTER,
-        error: err
-      });
     }
   };
 };
 
-export const editUser = data => {
-  const URL = 'api/v1/user/edit';
+export const editAdmin = data => {
+  const URL = 'api/v1/admin/edit';
   return async dispatch => {
     try {
       const response = await axios.put(URL, qs.stringify({ ...data }), {
@@ -76,7 +62,7 @@ export const editUser = data => {
 };
 
 export const getClaims = () => {
-  const URL = 'api/v1/user/claims';
+  const URL = 'api/v1/admin/claims';
   return async dispatch => {
     try {
       const response = await axios.get(URL, {
@@ -84,7 +70,7 @@ export const getClaims = () => {
       });
       dispatch({
         type: SUCCESS_GET_USER_CLAIMS,
-        payload: response.data.data.claims
+        payload: response.data.attributes.claim
       });
     } catch (err) {
       dispatch({
@@ -95,29 +81,8 @@ export const getClaims = () => {
   };
 };
 
-export const createClaim = data => {
-  const URL = 'api/v1/user/claims/add';
-  return async dispatch => {
-    try {
-      const response = await axios.post(URL, qs.stringify({ ...data }), {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`}
-      });
-      dispatch({
-        type: SUCCESS_CREATE_USER_CLAIMS,
-        payload: response.data.data.claims
-      });
-    } catch (err) {
-      dispatch({
-        type: FAIL_CREATE_USER_CLAIMS,
-        error: err
-      });
-    }
-  };
-};
-
 export default {
-  getUserInfo,
-  editUser,
-  getClaims,
-  createClaim
+  getAdminInfo,
+  editAdmin,
+  getClaims
 };

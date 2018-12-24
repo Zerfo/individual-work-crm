@@ -14,16 +14,16 @@ const BadTokenRequest = require('../../../helpers/BadToken');
 
 const createClaim = claimData => Claim.create({
   userID: claimData.userID,
-  computerID: claimData.computerID,
+  computerID: claimData.computerID ? claimData.computerID : '',
   statusClaim: 'new',
   nameClaim: claimData.name,
-  descriptionClaim: claimData.description
+  descriptionClaim: claimData.descriptionClaim
 });
 
 router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest,  async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const user = await searchUser({ id: jwt.verify(token, config.secret).id });
-  const claims = await searchClaim.userClaim({ id: jwt.verify(token, config.secret).id });
+  const claims = await searchClaim.userClaim({ userID: jwt.verify(token, config.secret).id });
   const computer = await searchComputer.userComputer({ id: jwt.verify(token, config.secret).id });
 
   return res.status(200).send({
@@ -85,7 +85,7 @@ router.put('/edit', jwtMiddleware({ secret: config.secret }), BadTokenRequest, a
 
 router.get('/claims', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
-  const claims = await searchClaim.userClaim({ id: jwt.verify(token, config.secret).id });
+  const claims = await searchClaim.userClaim({ userID: jwt.verify(token, config.secret).id });
   if (claims !== 'Error') {
     return res.status(200).send({
       status: 'Ok',
@@ -124,6 +124,7 @@ router.get('/computer/my',  jwtMiddleware({ secret: config.secret }), BadTokenRe
 });
 
 router.post('/claims/add', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+  console.log(req.body);
   Claim.sync()
   .then(() => {
     createClaim(req.body)
@@ -136,14 +137,15 @@ router.post('/claims/add', jwtMiddleware({ secret: config.secret }), BadTokenReq
         }
       }))
       .catch(err => res.status(404).send({
+        err: err,
         'status': 'ERROR',
         'code': '404',
         'name': err.name,
         'errors': {
-          'massage': err.errors[0].message,
-          'type': err.errors[0].type,
-          'origin': err.errors[0].origin,
-          'description': `Введен не уникальный ${err.errors[0].path}`
+          // 'massage': err.errors[0],
+          // 'type': err.errors[0],
+          // 'origin': err.errors[0],
+          // 'description': `Введен не уникальный ${err.errors[0]}`
           }
         }));
       });

@@ -8,7 +8,7 @@ module.exports = sequelize.define('claim', {
   },
   computerID: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true
   },
   statusClaim: {
     type: Sequelize.TEXT,

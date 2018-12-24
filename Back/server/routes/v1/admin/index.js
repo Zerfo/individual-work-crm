@@ -22,7 +22,7 @@ const createComputer = computerData => Computer.create({
 router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const user = await searchUser({ id: jwt.verify(token, config.secret).id });
-  const claims = await searchClaim.userClaim({ id: jwt.verify(token, config.secret).id });
+  const claims = await searchClaim.getAllClaim();
   const computer = await searchComputer.userComputer({ id: jwt.verify(token, config.secret).id });
 
   return res.status(200).send({
@@ -85,7 +85,7 @@ router.post('/edit', jwtMiddleware({ secret: config.secret }), BadTokenRequest, 
   });
 });
 
-router.get('/claims/all', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+router.get('/claims', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const claim = await searchClaim.getAllClaim();
 
   return res.status(200).send({

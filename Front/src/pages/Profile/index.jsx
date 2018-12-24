@@ -5,6 +5,7 @@ import Pt from 'prop-types';
 import { USER } from '../../constants/userRoles';
 
 import userActions from '../../actions/user';
+import adminActions from '../../actions/admin';
 
 import UserInfo from '../../components/blocks/UserInfo';
 import UserComputer from '../../components/atoms/userComputer';
@@ -14,6 +15,8 @@ import './Profile.scss';
 
 class Profile extends Component {
   static propTypes = {
+    getAdminInfo: Pt.func,
+    editAdmin: Pt.func,
     getUserInfo: Pt.func,
     editUser: Pt.func,
     claims: Pt.array,
@@ -35,7 +38,10 @@ class Profile extends Component {
   };
 
   componentDidMount () {
-    this.props.getUserInfo();
+    // eslint-disable-next-line no-unused-expressions
+    this.props.userInfo && this.props.userInfo.userRole === USER
+      ? this.props.getUserInfo()
+      : this.props.getAdminInfo();
   }
 
   render() {
@@ -68,7 +74,9 @@ const mapStateToProps = store => ({
 });
 const mapActionsToProps = {
   getUserInfo: userActions.getUserInfo,
-  editUser: userActions.editUser
+  getAdminInfo: adminActions.getAdminInfo,
+  editUser: userActions.editUser,
+  editAdmin: adminActions.editAdmin
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Profile);
