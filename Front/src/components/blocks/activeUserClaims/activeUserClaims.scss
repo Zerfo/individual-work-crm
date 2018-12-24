@@ -28,3 +28,33 @@
     }
   }
 }
+
+.claim {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+
+  &__name {
+    width: 150px;
+  }
+  &__description {
+    width: 300px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  &__dateCreate {
+    width: 350px;
+    text-align: right;
+  }
+  &__a {
+    text-decoration: underline;
+    margin-right: 3%;
+    margin-left: 3%;
+    &:hover {
+      color: #ff4169;
+      text-decoration: underline;
+    }
+  }
+}

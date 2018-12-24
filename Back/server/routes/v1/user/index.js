@@ -45,6 +45,7 @@ router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest,  
       descriptionClaim: item.descriptionClaim,
       commentsClaim: item.commentsClaim,
       resolveClaim: item.resolveClaim,
+      createdAt: item.createdAt
     })) : null,
     computer: computer.length !== 0 ? computer.map(item => ({
       specifications: JSON.parse(item.specifications),
@@ -103,6 +104,7 @@ router.get('/claims', jwtMiddleware({ secret: config.secret }), BadTokenRequest,
           descriptionClaim: item.descriptionClaim,
           commentsClaim: item.commentsClaim,
           resolveClaim: item.resolveClaim,
+          createdAt: item.createdAt
         })) : null
       }
     });
@@ -194,6 +196,7 @@ router.post('/claims/new_comment', jwtMiddleware({ secret: config.secret }), Bad
       descriptionClaim: claim.descriptionClaim,
       commentsClaim: JSON.parse(claim.commentsClaim),
       resolveClaim: claim.resolveClaim,
+      createdAt: item.createdAt,
     }
   });
 });

@@ -15,7 +15,19 @@ export default class ActiveUserClaims extends Component {
   render() {
     const { claims } = this.props;
 
-    const showSmallClaim = claim => null;
+    const showSmallClaim = (claim, index) => {
+      const date = new Date(claim.createdAt);
+      const dateClaim = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}  ${date.getHours()}:${date.getMinutes()}`;
+      return (
+        <div key={index} className="claim">
+          <div className="claim__number">{index + 1}.</div>
+          <div className="claim__name">{claim.nameClaim}</div>
+          <div className="claim__description">{claim.descriptionClaim}</div>
+          <div className="claim__dateCreate">{dateClaim}</div>
+          <a className="claim__a">Подробнее</a>
+        </div>
+      );
+    };
 
     return (
       <div className="userClaims-container">
@@ -29,7 +41,7 @@ export default class ActiveUserClaims extends Component {
               ? <p className="userClaims-container__body__p">
                 На данный момент у вас нет активных заявок.
               </p>
-              : claims.map((item, index) => showSmallClaim(item))
+              : claims.map((item, index) => showSmallClaim(item, index))
           }
         </div>
       </div>
