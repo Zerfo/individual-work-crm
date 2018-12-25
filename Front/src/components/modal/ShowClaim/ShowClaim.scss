@@ -27,9 +27,19 @@
     &__description {
       margin-top: 3%;
     }
-    &__date {
-      color: #000;
-      margin-top: 4%;
+    &__footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5%;
+
+      &__date {
+        color: #000;
+        padding-top: .5%;
+      }
+      &__closeClaim {
+        height: 26px;
+        text-align: center;
+      }
     }
   }
 }

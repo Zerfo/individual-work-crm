@@ -8,6 +8,7 @@ import './ClaimCard.scss';
 
 export default class ClaimCard extends Component {
   static propTypes = {
+    type: Pt.string,
     claim: Pt.shape({
       id: Pt.number,
       userID: Pt.number,
@@ -54,6 +55,7 @@ export default class ClaimCard extends Component {
         {this.state.showModalMoreInfo
           && <ModalTemplate onClose={this.showMoreInfo}>
             <ShowClaim
+              type={this.props.type}
               onClose={this.showMoreInfo}
               claim={this.props.claim}
             />

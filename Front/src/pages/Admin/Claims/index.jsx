@@ -23,7 +23,11 @@ class AdminClaims extends Component {
       <div className="adminClaim-container">
         {
           this.props.claims
-            && this.props.claims.map((item, index) => <ClaimCard claim={item} key={index} />)
+            && this.props.claims.map((item, index) => <ClaimCard
+              claim={item}
+              type={'admin'}
+              key={index}
+            />)
         }
       </div>
     );

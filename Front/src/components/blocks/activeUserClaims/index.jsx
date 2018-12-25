@@ -70,6 +70,7 @@ export default class ActiveUserClaims extends Component {
         {this.state.showModalMoreInfo
           && <ModalTemplate onClose={this.showMoreInfo}>
             <ShowClaim
+              type={'user'}
               claim={this.state.claim}
               onClose={this.showMoreInfo}
             />

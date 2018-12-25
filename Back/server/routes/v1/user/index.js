@@ -164,7 +164,7 @@ router.post('/claims/new_comment', jwtMiddleware({ secret: config.secret }), Bad
   await claim.updateAttributes(comments);
   claim = await searchClaim.userClaim({
     userID: jwt.verify(token, config.secret).id,
-    id: req.body.data.claimId
+    id: req.body.claimId
   });
 
   return res.status(200).send({
@@ -182,11 +182,11 @@ router.post('/claims/new_comment', jwtMiddleware({ secret: config.secret }), Bad
   });
 });
 
-router.delete('/claims/close',  jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+router.delete('/claim/close',  jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   const claim = await searchClaim.claim({
     userID: jwt.verify(token, config.secret).id,
-    id: req.body.data.claimId
+    id: req.body.claimId
   });
   const deleteClaim = {
     'status': 'close'

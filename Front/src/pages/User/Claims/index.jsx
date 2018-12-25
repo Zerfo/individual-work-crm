@@ -21,7 +21,11 @@ class UserClaims extends Component {
     return (
       <div className="userClaim-container">
         {
-          this.props.claims.map((item, index) => <ClaimCard claim={item} key={index} />)
+          this.props.claims.map((item, index) => <ClaimCard
+            claim={item}
+            type={'user'}
+            key={index}
+          />)
         }
       </div>
     );
