@@ -62,7 +62,7 @@ class ShowClaim extends Component {
               Заявка создана {dateClaim}
             </div>
             {
-              this.props.type === 'user'
+              this.props.type === 'user' && claim.statusClaim !== 'new'
                 && <Button
                   onClose={this.closeClaim}
                   className="showClaimModal__main__footer__closeClaim"
