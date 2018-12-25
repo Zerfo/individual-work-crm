@@ -115,17 +115,15 @@ export const createClaim = data => {
   };
 };
 
-export const closeClaim = data => {
+export const closeClaim = async data => {
   const URL = 'api/v1/user/claim/close';
-  return async dispatch => {
-    try {
-      const response = await axios.delete(URL, qs.stringify({ ...data }), {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`}
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  try {
+    await axios.post(URL, qs.stringify({ ...data }), {
+      headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}`}
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export default {

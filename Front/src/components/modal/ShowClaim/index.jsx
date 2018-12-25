@@ -29,7 +29,7 @@ class ShowClaim extends Component {
   }
 
   closeClaim = async () => {
-    await this.props.closeClaim();
+    await this.props.closeClaim({ claimID: this.props.claim.id });
     this.props.getClaims();
     this.props.onClose();
   }
@@ -62,9 +62,9 @@ class ShowClaim extends Component {
               Заявка создана {dateClaim}
             </div>
             {
-              this.props.type === 'user' && claim.statusClaim !== 'new'
+              this.props.type === 'user' && claim.statusClaim === 'new'
                 && <Button
-                  onClose={this.closeClaim}
+                  onClick={this.closeClaim}
                   className="showClaimModal__main__footer__closeClaim"
                 >
                     Закрыть заявку

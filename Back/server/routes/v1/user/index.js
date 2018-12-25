@@ -182,14 +182,12 @@ router.post('/claims/new_comment', jwtMiddleware({ secret: config.secret }), Bad
   });
 });
 
-router.delete('/claim/close',  jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
-  const token = req.headers.authorization.split(' ')[1];
-  const claim = await searchClaim.claim({
-    userID: jwt.verify(token, config.secret).id,
-    id: req.body.claimId
+router.post('/claim/close',  jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+  let claim = await searchClaim.claim({
+    id: req.body.claimID
   });
   const deleteClaim = {
-    'status': 'close'
+    'statusClaim': 'close'
   };
 
   await claim.updateAttributes(deleteClaim);

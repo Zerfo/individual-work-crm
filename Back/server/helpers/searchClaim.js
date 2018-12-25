@@ -6,6 +6,7 @@ const userClaim = async data => {
   if (!claims) return 'Error';
   return claims;
 }
+
 const computerClaim = async computerID => {
   await Claim.sync();
   const claims = await Claim.findAll({ where: computerID });
@@ -21,7 +22,7 @@ const nameClaim = async nameClaim => {
 
 const claim = async data => {
   await Claim.sync();
-  const claims = await Claim.find({ where: { ...data } });
+  const claims = await Claim.findOne({ where: { ...data } });
   if (!claims) return 'Error';
   return claims;
 }
