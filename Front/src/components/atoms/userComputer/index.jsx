@@ -55,7 +55,7 @@ const UserComputer = (props) => (
           ? <p className="userComputer-container__body__p">
             У вас пока нет компьютера.
           </p>
-          : showComputerInfo(props.computer, props.type)
+          : showComputerInfo(props.computer)
       }
     </div>
   </div>
