@@ -9,7 +9,7 @@ const showComputerInfo = (computer) => {
   const date = new Date(computer.createdAt);
   const dateComputer = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   return (
-    <div className="computer">
+    <div className='computer'>
       <div className="computer__left">
         <h3 className="computer__left__h3">Общая информация:</h3>
         <div className="computer__left__id">
@@ -43,7 +43,7 @@ const showComputerInfo = (computer) => {
 };
 
 const UserComputer = (props) => (
-  <div className="userComputer-container">
+  <div className={props.type === 'admin' ? 'adminComputer' : 'userComputer-container'}>
     <div className="userComputer-container__header">
       <h2 className="userComputer-container__header__h2">
         Ваш компьютер:
@@ -55,13 +55,14 @@ const UserComputer = (props) => (
           ? <p className="userComputer-container__body__p">
             У вас пока нет компьютера.
           </p>
-          : showComputerInfo(props.computer)
+          : showComputerInfo(props.computer, props.type)
       }
     </div>
   </div>
 );
 
 UserComputer.propTypes = {
+  type: Pt.string,
   computer: Pt.shape({
     specifications: Pt.any,
     pictureURL: Pt.string,

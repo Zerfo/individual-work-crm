@@ -4,9 +4,14 @@ import { connect } from 'react-redux';
 
 import adminActions from '../../../actions/admin';
 
+import UserComputer from '../../../components/atoms/userComputer';
+
+import './AdminComputers.scss';
+
 class AdminComputers extends Component {
   static propTypes = {
-    getComputers: Pt.func
+    getComputers: Pt.func,
+    computers: Pt.array
   };
 
   componentDidMount() {
@@ -15,8 +20,15 @@ class AdminComputers extends Component {
 
   render() {
     return (
-      <div>
-        AdminComputers
+      <div className="adminComputer-container">
+        {
+          this.props.computers
+           && this.props.computers.map((item, index) => <UserComputer
+             computer={item}
+             type={'admin'}
+             key={index}
+           />)
+        }
       </div>
     );
   }
