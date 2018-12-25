@@ -44,7 +44,7 @@ router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest, a
       descriptionClaim: item.descriptionClaim,
       commentsClaim: item.commentsClaim,
       resolveClaim: item.resolveClaim,
-    })) : null,
+    })).reverse() : null,
     computer: computer.length !== 0 ? computer.map(item => ({
       specifications: JSON.parse(item.specifications),
       pictureURL: item.pictureURL,
@@ -92,7 +92,7 @@ router.get('/claims', jwtMiddleware({ secret: config.secret }), BadTokenRequest,
     status: 'Ok',
     code: '200',
     attributes: {
-      claim
+      claim: claim.reverse()
     }
   });
 });

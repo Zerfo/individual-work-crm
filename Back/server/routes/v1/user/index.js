@@ -4,7 +4,6 @@ const jwtMiddleware = require('express-jwt');
 const jwt = require('jsonwebtoken');
 
 const Claim = require('../../../../database/schemas/claim');
-const Computer = require('../../../../database/schemas/computer');
 
 const config = require('../../../config');
 const searchUser = require('../../../helpers/searchUser');
@@ -47,7 +46,7 @@ router.get('/info', jwtMiddleware({ secret: config.secret }), BadTokenRequest,  
       commentsClaim: item.commentsClaim,
       resolveClaim: item.resolveClaim,
       createdAt: item.createdAt
-    })) : null,
+    })).reverse() : null,
     computer: computer.length !== 0 ? computer[0] : null
   });
 });
@@ -91,7 +90,7 @@ router.get('/claims', jwtMiddleware({ secret: config.secret }), BadTokenRequest,
       status: 'Ok',
       code: '200',
       data: {
-        claims: claims.length !== 0 ? claims.map(item => item) : null
+        claims: claims.length !== 0 ? claims.map(item => item).reverse() : null
       }
     });
   } else {
@@ -124,7 +123,6 @@ router.get('/computer/my',  jwtMiddleware({ secret: config.secret }), BadTokenRe
 });
 
 router.post('/claims/add', jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
-  console.log(req.body);
   Claim.sync()
   .then(() => {
     createClaim(req.body)
@@ -142,10 +140,10 @@ router.post('/claims/add', jwtMiddleware({ secret: config.secret }), BadTokenReq
         'code': '404',
         'name': err.name,
         'errors': {
-          // 'massage': err.errors[0],
-          // 'type': err.errors[0],
-          // 'origin': err.errors[0],
-          // 'description': `Введен не уникальный ${err.errors[0]}`
+          'massage': err.errors[0],
+          'type': err.errors[0],
+          'origin': err.errors[0],
+          'description': `Введен не уникальный ${err.errors[0]}`
           }
         }));
       });
@@ -160,7 +158,7 @@ router.post('/claims/new_comment', jwtMiddleware({ secret: config.secret }), Bad
   const comment = req.body.data.comment;
 
   const comments =  {
-    'commentsClaim': JSON.parse(claim.commentsClaim).concat(comment)
+    'commentsClaim': JSON.stringify(JSON.parse(claim.commentsClaim).concat(comment))
   };
 
   await claim.updateAttributes(comments);
@@ -184,6 +182,22 @@ router.post('/claims/new_comment', jwtMiddleware({ secret: config.secret }), Bad
   });
 });
 
-// TODO: Написать метод закрытия заявки пользователем с указанием причины в комментах;
+router.delete('/claims/close',  jwtMiddleware({ secret: config.secret }), BadTokenRequest, async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const claim = await searchClaim.claim({
+    userID: jwt.verify(token, config.secret).id,
+    id: req.body.data.claimId
+  });
+  const deleteClaim = {
+    'status': 'close'
+  };
+
+  await claim.updateAttributes(deleteClaim);
+  return res.status(200).send({
+    status: 'Ok',
+    code: '200',
+    messege: 'This claim was closed'
+  });
+});
 
 module.exports = router;
