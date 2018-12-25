@@ -31,6 +31,7 @@ class ShowClaim extends Component {
   closeClaim = async () => {
     await this.props.closeClaim();
     this.props.getClaims();
+    this.props.onClose();
   }
 
   render() {
