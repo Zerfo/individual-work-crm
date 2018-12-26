@@ -1,0 +1,78 @@
+.userInfo {
+  &__body__edit {
+    height: 70%;
+    font-size: 15px;
+    &__generalInfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      height: 75%;
+      &__avatar {
+        &__label {
+          margin-right: 15%;
+          font-size: 16px;
+          font-weight: 500;
+        }
+        &__button {
+
+        }
+      }
+      &__lastName {
+        display: flex;
+        &__label {
+          margin-right: 15%;
+          font-size: 16px;
+          font-weight: 500;
+        }
+        &__input {
+
+        }
+      }
+      &__firstName {
+        display: flex;
+        &__label {
+          margin-right: 30%;
+          font-size: 16px;
+          font-weight: 500;
+        }
+        &__input {
+
+        }
+      }
+      &__username {
+        &__label {
+          margin-right: 25%;
+          font-size: 16px;
+          font-weight: 500;
+        }
+      }
+      &__email {
+        &__label {
+          margin-right: 28%;
+          font-size: 16px;
+          font-weight: 500;
+        }
+      }
+    }
+    &__additionalInfo {
+      height: 30%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;;
+      &__role {
+        &__label {
+          font-size: 16px;
+          font-weight: 500;
+          margin-right: 5%;
+        }
+      }
+      &__id {
+        &__label {
+          font-size: 16px;
+          font-weight: 500;
+          margin-right: 13%;
+        }
+      }
+    }
+  }
+}

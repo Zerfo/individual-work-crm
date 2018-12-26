@@ -1,0 +1,45 @@
+.showClaimModal {
+  &__exit {
+    cursor: pointer;
+    width: 27px;
+    height: 27px;
+    position: absolute;
+    top: 24px;
+    right: 24px;
+  }
+  &__main {
+    &__header {
+      display: flex;
+      margin-top: .5%;
+
+      &__id {
+
+      }
+      &__status {
+        margin-left: 15%;
+      }
+    }
+    &__name {
+      font-size: 20px;
+      font-weight: 500;
+      margin-top: 4%;
+    }
+    &__description {
+      margin-top: 3%;
+    }
+    &__footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5%;
+
+      &__date {
+        color: #000;
+        padding-top: .5%;
+      }
+      &__closeClaim {
+        height: 26px;
+        text-align: center;
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "individual-work-crm",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./Back/index.js",
+    "eslint": "eslint ./Back/server --max-warnings=0 && eslint ./Front/src --max-warnings=0",
+    "flow": "flow",
+    "testBack": "echo \"Error: no test specified\" && exit 1",
+    "testFront": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zerfo/individual-work-crm.git"
+  },
+  "author": {
+    "name": "Nikolay SMekalin",
+    "email": "Zerfogame@yandex.ru"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Zerfo/individual-work-crm/issues"
+  },
+  "homepage": "https://github.com/Zerfo/individual-work-crm#readme",
+  "dependencies": {
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-flowtype": "^2.50.3",
+    "eslint-plugin-import": "^2.14.0",
+    "node-sass": "^4.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "flow-bin": "^0.80.0",
+    "nodemon": "^1.18.7",
+    "prettier": "^1.14.2"
+  }
+}

@@ -1,0 +1,64 @@
+.userClaims-container {
+  width: 100%;
+  height: 45%;
+  border: 1px solid #383838;
+  border-radius: 15px;
+  padding: 1% 3%;
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+
+    &__h2 {
+      width: 300px;
+    }
+    &__a {
+      padding-top: .6%;
+      text-decoration: underline;
+
+      &:hover {
+        color: #ff4169;
+        text-decoration: underline;
+      }
+    }
+  }
+  &__body {
+    &__p {
+      font-style: italic;
+    }
+  }
+}
+
+.claim {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+
+  &__name {
+    width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  &__description {
+    width: 300px;
+    margin-left: 5%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  &__dateCreate {
+    width: 350px;
+    text-align: right;
+  }
+  &__a {
+    text-decoration: underline;
+    margin-right: 3%;
+    margin-left: 3%;
+    &:hover {
+      color: #ff4169;
+      text-decoration: underline;
+    }
+  }
+}

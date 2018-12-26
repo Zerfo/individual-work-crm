@@ -1,0 +1,11 @@
+.login-layout {
+  min-height: 100%;
+
+  &-content {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
