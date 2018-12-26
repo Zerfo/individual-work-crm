@@ -45,7 +45,7 @@ export default class ClaimCard extends Component {
         <div className="card__id">id: {id}</div>
         <div className="card__header">
           <h3 className="card__header__h3">{nameClaim}</h3>
-          <div className="card__header__status">{statusClaim}</div>
+          <div className={'card__header__status ' + `${statusClaim === 'close' && 'red'}`}>{statusClaim}</div>
         </div>
         <div className="card__body">
           <div className="card__body__description">{descriptionClaim}</div>
